@@ -3,6 +3,9 @@ import turtle as trtl
 import random as rand
 
 # game setup
+score_keeper = trtl.Turtle
+score = 0
+font_setup = "arial", 20, "normal"
 meteor_image = "flaming_meteor.gif"
 x_offset = -20
 y_offset = -47
@@ -13,7 +16,7 @@ wn.bgpic("space_background.gif")
 meteor = trtl.Turtle()
 wn.tracer(False)
 screen_width = 600
-screen_height = 600
+screen_height = 800
 letter_list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 current_letter = "H"
 
@@ -23,7 +26,7 @@ def reset_meteor(active_meteor):
     length = len(letter_list)
     if(length != 0):
         index = rand.randint(0, length-1)
-        active_meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height + 800, screen_height/2))
+        active_meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height*-0.5, screen_height/2))
         current_letter = letter_list.pop(index)
         draw_meteor(active_meteor, current_letter)
 
@@ -37,13 +40,17 @@ def draw_meteor(active_meteor, letter):
 def meteor_drop():
     wn.tracer(True)
     meteor.penup()
-    meteor.speed(0)
-    meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height + 800, screen_height/2))
-    meteor.speed(20)
+    meteor.goto(meteor.xcor(),-400)
     meteor.hideturtle()
     meteor.clear()
     wn.tracer(False)
     reset_meteor(meteor)
+
+def score_change():
+    global score
+    score += 1
+    score_keeper.clear()
+    score_keeper.write(score, font=font_setup)
 
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
