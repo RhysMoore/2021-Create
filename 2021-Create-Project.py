@@ -14,11 +14,10 @@ wn.setup(width=1.0, height=1.0)
 wn.addshape(meteor_image)
 wn.bgpic("space_background.gif")
 meteor = trtl.Turtle()
-wn.tracer(False)
 screen_width = 600
 screen_height = 800
 letter_list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-current_letter = "H"
+current_letter = "F"
 
 # functions
 def reset_meteor(active_meteor):
@@ -29,21 +28,22 @@ def reset_meteor(active_meteor):
         active_meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height*-0.5, screen_height/2))
         current_letter = letter_list.pop(index)
         draw_meteor(active_meteor, current_letter)
+        meteor.penup()
+        meteor.goto(meteor.xcor(), -400)
 
 def draw_meteor(active_meteor, letter):
     active_meteor.penup()
     active_meteor.shape(meteor_image)
-    active_meteor.showturtle()
+    active_meteor.speed("fastest")
     draw_letter(letter, active_meteor)
+    active_meteor.showturtle()
+    active_meteor.speed(3)
     wn.update()
 
-def meteor_drop():
-    wn.tracer(True)
-    meteor.penup()
-    meteor.goto(meteor.xcor(),-400)
+
+def meteor_respawn():
     meteor.hideturtle()
     meteor.clear()
-    wn.tracer(False)
     reset_meteor(meteor)
 
 def score_change():
@@ -55,116 +55,116 @@ def score_change():
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
     remember_pos = active_meteor.position()
-    active_meteor.setpos(active_meteor.xcor() + x_offset, active_meteor.ycor() + y_offset)
+    active_meteor.setpos(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/2, screen_height/2))
     active_meteor.write(letter, font=("Arial", 50, "bold"))
     active_meteor.setpos(remember_pos)
     
 def checkA():
   if(current_letter == "A"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkB():
   if(current_letter == "B"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkC():
   if(current_letter == "C"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkD():
   if(current_letter == "D"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkE():
   if(current_letter == "E"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkF():
   if(current_letter == "F"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkG():
   if(current_letter == "G"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkH():
   if(current_letter == "H"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkI():
   if(current_letter == "I"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkJ():
   if(current_letter == "J"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkK():
   if(current_letter == "K"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkL():
   if(current_letter == "L"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkM():
   if(current_letter == "M"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkN():
   if(current_letter == "N"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkO():
   if(current_letter == "O"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkP():
   if(current_letter == "P"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkQ():
   if(current_letter == "Q"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkR():
   if(current_letter == "R"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkS():
   if(current_letter == "S"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkT():
   if(current_letter == "T"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkU():
   if(current_letter == "U"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkV():
   if(current_letter == "V"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkW():
   if(current_letter == "W"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkX():
   if(current_letter == "X"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkY():
   if(current_letter == "Y"):
-    meteor_drop()
+    meteor_respawn()
 
 def checkZ():
   if(current_letter == "Z"):
-    meteor_drop()
+    meteor_respawn()
 
 # function calls
-draw_meteor(meteor, "H")
+draw_meteor(meteor, "F")
 wn.onkeypress(checkA, "a")
 wn.onkeypress(checkB, "b")
 wn.onkeypress(checkC, "c")
