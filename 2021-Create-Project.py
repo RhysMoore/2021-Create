@@ -25,7 +25,7 @@ def reset_meteor(active_meteor):
     length = len(letter_list)
     if(length != 0):
         index = rand.randint(0, length-1)
-        active_meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height*-0.5, screen_height/2))
+        active_meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/-2, screen_height/2))
         current_letter = letter_list.pop(index)
         draw_meteor(active_meteor, current_letter)
         meteor.penup()
@@ -48,9 +48,10 @@ def meteor_respawn():
 
 def score_change():
     global score
-    score += 1
-    score_keeper.clear()
-    score_keeper.write(score, font=font_setup)
+    if (reset_meteor):
+        score += 1
+        score_keeper.clear()
+        score_keeper.write(score, font=font_setup)
 
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
@@ -58,7 +59,7 @@ def draw_letter(letter, active_meteor):
     active_meteor.setpos(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/2, screen_height/2))
     active_meteor.write(letter, font=("Arial", 50, "bold"))
     active_meteor.setpos(remember_pos)
-    
+
 def checkA():
   if(current_letter == "A"):
     meteor_respawn()
