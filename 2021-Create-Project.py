@@ -3,9 +3,8 @@ import turtle as trtl
 import random as rand
 
 # game setup
-score_keeper = trtl.Turtle
 score = 0
-font_setup = "arial", 20, "normal"
+font_setup = "arial", 40, "bold"
 meteor_image = "flaming_meteor.gif"
 x_offset = -20
 y_offset = -47
@@ -13,6 +12,12 @@ wn = trtl.Screen()
 wn.setup(width=1.0, height=1.0)
 wn.addshape(meteor_image)
 wn.bgpic("space_background.gif")
+score_keeper = trtl.Turtle()
+score_keeper.penup()
+score_keeper.speed("fastest")
+score_keeper.goto(300, -400)
+score_keeper.hideturtle()
+score_keeper.color("white")
 meteor = trtl.Turtle()
 screen_width = 600
 screen_height = 800
@@ -21,6 +26,7 @@ current_letter = "F"
 
 # functions
 def reset_meteor(active_meteor):
+    score_change()
     global current_letter
     length = len(letter_list)
     if(length != 0):
@@ -30,6 +36,7 @@ def reset_meteor(active_meteor):
         draw_meteor(active_meteor, current_letter)
         meteor.penup()
         meteor.goto(meteor.xcor(), -400)
+        meteor_respawn()
 
 def draw_meteor(active_meteor, letter):
     active_meteor.penup()
@@ -37,7 +44,7 @@ def draw_meteor(active_meteor, letter):
     active_meteor.speed("fastest")
     draw_letter(letter, active_meteor)
     active_meteor.showturtle()
-    active_meteor.speed(3)
+    active_meteor.speed(2.5)
     wn.update()
 
 
@@ -48,10 +55,9 @@ def meteor_respawn():
 
 def score_change():
     global score
-    if (reset_meteor):
-        score += 1
-        score_keeper.clear()
-        score_keeper.write(score, font=font_setup)
+    score += 1
+    score_keeper.clear()
+    score_keeper.write(score, font=font_setup)
 
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
@@ -59,6 +65,7 @@ def draw_letter(letter, active_meteor):
     active_meteor.setpos(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/2, screen_height/2))
     active_meteor.write(letter, font=("Arial", 50, "bold"))
     active_meteor.setpos(remember_pos)
+
 
 def checkA():
   if(current_letter == "A"):
@@ -192,7 +199,6 @@ wn.onkeypress(checkW, "w")
 wn.onkeypress(checkX, "x")
 wn.onkeypress(checkY, "y")
 wn.onkeypress(checkZ, "z")
-
 
 
 wn.listen()
