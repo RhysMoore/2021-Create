@@ -3,7 +3,7 @@ import turtle as trtl
 import random as rand
 
 # game setup
-score = 0
+lives = 3
 font_setup = "arial", 40, "bold"
 meteor_image = "flaming_meteor.gif"
 x_offset = -20
@@ -12,12 +12,12 @@ wn = trtl.Screen()
 wn.setup(width=1.0, height=1.0)
 wn.addshape(meteor_image)
 wn.bgpic("space_background.gif")
-score_keeper = trtl.Turtle()
-score_keeper.penup()
-score_keeper.speed("fastest")
-score_keeper.goto(300, -400)
-score_keeper.hideturtle()
-score_keeper.color("white")
+life_counter = trtl.Turtle()
+life_counter.penup()
+life_counter.speed("fastest")
+life_counter.goto(300, -400)
+life_counter.hideturtle()
+life_counter.color("white")
 meteor = trtl.Turtle()
 screen_width = 600
 screen_height = 800
@@ -26,7 +26,7 @@ current_letter = "F"
 
 # functions
 def reset_meteor(active_meteor):
-    score_change()
+    life_change()
     global current_letter
     length = len(letter_list)
     if(length != 0):
@@ -53,11 +53,11 @@ def meteor_respawn():
     meteor.clear()
     reset_meteor(meteor)
 
-def score_change():
-    global score
-    score += 1
-    score_keeper.clear()
-    score_keeper.write(score, font=font_setup)
+def life_change():
+    global lives
+    lives -= 1
+    life_counter.clear()
+    life_counter.write(lives, font=font_setup)
 
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
@@ -65,6 +65,8 @@ def draw_letter(letter, active_meteor):
     active_meteor.setpos(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/2, screen_height/2))
     active_meteor.write(letter, font=("Arial", 50, "bold"))
     active_meteor.setpos(remember_pos)
+
+# def game_start():
 
 
 def checkA():
