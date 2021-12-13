@@ -3,6 +3,7 @@ import turtle as trtl
 import random as rand
 
 # game setup
+difficulty_question = "Would you like normal or hard difficulty?"
 lives = 3
 font_setup = "arial", 40, "bold"
 meteor_image = "flaming_meteor.gif"
@@ -18,15 +19,32 @@ life_counter.speed("fastest")
 life_counter.goto(300, -400)
 life_counter.hideturtle()
 life_counter.color("white")
-meteor = trtl.Turtle()
+game_starter = trtl.Turtle()
+game_starter.hideturtle()
+game_starter.speed("fastest")
+game_starter.goto(0, 0)
 screen_width = 600
 screen_height = 800
+meteor = trtl.Turtle()
+meteor.hideturtle()
+meteor.penup()
+meteor.speed("fastest")
+meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/-2, screen_height/2))
 letter_list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 current_letter = "F"
 
 # functions
+def start_game():
+    difficulty = input(str(difficulty_question))
+    game_starter.write(difficulty_question, font=font_setup)
+    if(difficulty == "normal"):
+        meteor.speed(2.5)
+        reset_meteor()
+    else:
+        meteor.speed(3)
+        reset_meteor()
+
 def reset_meteor(active_meteor):
-    life_change()
     global current_letter
     length = len(letter_list)
     if(length != 0):
@@ -36,6 +54,7 @@ def reset_meteor(active_meteor):
         draw_meteor(active_meteor, current_letter)
         meteor.penup()
         meteor.goto(meteor.xcor(), -400)
+        life_change()
         meteor_respawn()
 
 def draw_meteor(active_meteor, letter):
@@ -46,7 +65,6 @@ def draw_meteor(active_meteor, letter):
     active_meteor.showturtle()
     active_meteor.speed(2.5)
     wn.update()
-
 
 def meteor_respawn():
     meteor.hideturtle()
@@ -65,9 +83,6 @@ def draw_letter(letter, active_meteor):
     active_meteor.setpos(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/2, screen_height/2))
     active_meteor.write(letter, font=("Arial", 50, "bold"))
     active_meteor.setpos(remember_pos)
-
-# def game_start():
-
 
 def checkA():
   if(current_letter == "A"):
