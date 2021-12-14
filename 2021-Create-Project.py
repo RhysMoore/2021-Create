@@ -3,7 +3,6 @@ import turtle as trtl
 import random as rand
 
 # game setup
-difficulty_question = "Would you like normal or hard difficulty?"
 lives = 3
 font_setup = "arial", 40, "bold"
 meteor_image = "flaming_meteor.gif"
@@ -35,8 +34,8 @@ current_letter = "F"
 
 # functions
 def start_game():
-    difficulty = input(str(difficulty_question))
-    game_starter.write(difficulty_question, font=font_setup)
+    difficulty = input("difficulty: normal or hard")
+    game_starter.write(difficulty, font=font_setup)
     if(difficulty == "normal"):
         meteor.speed(2.5)
         reset_meteor()
