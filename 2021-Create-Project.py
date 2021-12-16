@@ -31,16 +31,19 @@ meteor.speed("fastest")
 meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/-2, screen_height/2))
 letter_list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 current_letter = "F"
-meteor.write("Please click to begin", font=font_setup)
 # functions
 def start_game():
     difficulty = input("difficulty: normal or hard (Please type answer then hit enter)")
-    game_starter.write(difficulty, font=font_setup)
-    if(difficulty == "normal", "Normal"):
+    difficulty_question = "difficulty: normal or hard (Please type answer then hit enter)"
+    game_starter.color("white")
+    game_starter.write(difficulty_question, font=font_setup)
+    if(difficulty == "normal"):
+        game_starter.clear()
         meteor.speed(2.5)
         life_change()
         reset_meteor()
     else:
+        game_starter.clear()
         meteor.speed(3)
         life_change()
         reset_meteor()
@@ -58,14 +61,14 @@ def reset_meteor(active_meteor):
         meteor_respawn()
 
 def draw_meteor(active_meteor, letter):
-    if start_game():
-        active_meteor.penup()
-        active_meteor.shape(meteor_image)
-        active_meteor.speed("fastest")
-        draw_letter(letter, active_meteor)
-        active_meteor.showturtle()
-        active_meteor.speed(2.5)
-        wn.update()
+    active_meteor.penup()
+    active_meteor.shape(meteor_image)
+    active_meteor.speed("fastest")
+    draw_letter(letter, active_meteor)
+    active_meteor.showturtle()
+    active_meteor.speed(2.5)
+    wn.update()
+    start_game()
 
 def meteor_respawn():
     meteor.hideturtle()
@@ -91,7 +94,7 @@ def game_over():
     meteor.clear()
     rerun = input("Out of lives! Play again? (Please type answer then hit enter)")
     game_starter.write(rerun, font=font_setup)
-    if(rerun == "yes", "Yes"):
+    if(rerun == "yes"):
         start_game()
 
 def checkA():
@@ -116,7 +119,7 @@ def checkE():
 
 def checkF():
   if(current_letter == "F"):
-    meteor_respawn()
+    start_game()
 
 def checkG():
   if(current_letter == "G"):
