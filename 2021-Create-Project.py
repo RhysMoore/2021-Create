@@ -33,20 +33,7 @@ letter_list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","
 current_letter = "F"
 # functions
 def start_game():
-    difficulty = input("difficulty: normal or hard (Please type answer then hit enter)")
-    difficulty_question = "difficulty: normal or hard (Please type answer then hit enter)"
-    game_starter.color("white")
-    game_starter.write(difficulty_question, font=font_setup)
-    if(difficulty == "normal"):
-        game_starter.clear()
-        meteor.speed(2.5)
-        life_change()
-        reset_meteor()
-    else:
-        game_starter.clear()
-        meteor.speed(3)
-        life_change()
-        reset_meteor()
+    game_starter.write("click to begin", font=font_setup)
 
 def reset_meteor(active_meteor):
     global current_letter
@@ -68,7 +55,6 @@ def draw_meteor(active_meteor, letter):
     active_meteor.showturtle()
     active_meteor.speed(2.5)
     wn.update()
-    start_game()
 
 def meteor_respawn():
     meteor.hideturtle()
@@ -91,11 +77,9 @@ def draw_letter(letter, active_meteor):
     active_meteor.setpos(remember_pos)
 
 def game_over():
-    meteor.clear()
-    rerun = input("Out of lives! Play again? (Please type answer then hit enter)")
-    game_starter.write(rerun, font=font_setup)
-    if(rerun == "yes"):
-        start_game()
+    if(lives == 0):
+        meteor.clear()
+        game_starter.write("Out of lives! CLick to play again", font=font_setup)
 
 def checkA():
   if(current_letter == "A"):
@@ -119,7 +103,7 @@ def checkE():
 
 def checkF():
   if(current_letter == "F"):
-    start_game()
+    meteor_respawn()
 
 def checkG():
   if(current_letter == "G"):
@@ -202,6 +186,7 @@ def checkZ():
     meteor_respawn()
 
 # function calls
+wn.
 draw_meteor(meteor, "F")
 wn.onkeypress(checkA, "a")
 wn.onkeypress(checkB, "b")
