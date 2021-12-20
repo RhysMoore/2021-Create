@@ -21,7 +21,9 @@ life_counter.color("white")
 game_starter = trtl.Turtle()
 game_starter.hideturtle()
 game_starter.speed("fastest")
-game_starter.goto(0, 0)
+game_starter.penup()
+game_starter.goto(-500, 0)
+game_starter.color("white")
 screen_width = 600
 screen_height = 800
 meteor = trtl.Turtle()
@@ -32,10 +34,8 @@ meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_
 letter_list = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 current_letter = "F"
 # functions
-def start_game():
-    game_starter.write("click to begin", font=font_setup)
-
 def reset_meteor(active_meteor):
+    game_starter.clear()
     global current_letter
     length = len(letter_list)
     if(length != 0):
@@ -45,9 +45,13 @@ def reset_meteor(active_meteor):
         draw_meteor(active_meteor, current_letter)
         meteor.penup()
         meteor.goto(meteor.xcor(), -400)
+        life_change()
         meteor_respawn()
+    else:
+        game_won()
 
 def draw_meteor(active_meteor, letter):
+    game_starter.write("Press the indicated key, destroy the meteor!", font=font_setup)
     active_meteor.penup()
     active_meteor.shape(meteor_image)
     active_meteor.speed("fastest")
@@ -66,8 +70,8 @@ def life_change():
     lives -= 1
     life_counter.clear()
     life_counter.write(lives, font=font_setup)
-    if(lives == 0):
-        game_over()
+    if(lives <= 0):
+        game_lost()
 
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
@@ -76,10 +80,13 @@ def draw_letter(letter, active_meteor):
     active_meteor.write(letter, font=("Arial", 50, "bold"))
     active_meteor.setpos(remember_pos)
 
-def game_over():
-    if(lives == 0):
-        meteor.clear()
-        game_starter.write("Out of lives! CLick to play again", font=font_setup)
+def game_lost():
+    meteor.clear()
+    game_starter.write("Out of lives! Click to play again", font=font_setup)
+
+def game_won():
+    meteor.clear()
+    game_starter.write("Meteors destroyed, click to play again!", font=font_setup)
 
 def checkA():
   if(current_letter == "A"):
@@ -186,7 +193,7 @@ def checkZ():
     meteor_respawn()
 
 # function calls
-wn.
+wn.onclick(draw_meteor)
 draw_meteor(meteor, "F")
 wn.onkeypress(checkA, "a")
 wn.onkeypress(checkB, "b")
