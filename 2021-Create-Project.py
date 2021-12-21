@@ -3,6 +3,7 @@ import turtle as trtl
 import random as rand
 
 # game setup
+start = 0
 lives = 3
 font_setup = "arial", 40, "bold"
 meteor_image = "flaming_meteor.gif"
@@ -38,7 +39,7 @@ def reset_meteor(active_meteor):
     game_starter.clear()
     global current_letter
     length = len(letter_list)
-    if(length != 0):
+    if(length > 0):
         index = rand.randint(0, length-1)
         active_meteor.goto(rand.randint(-screen_width/2, screen_width/2), rand.randint(-screen_height/-2, screen_height/2))
         current_letter = letter_list.pop(index)
@@ -51,14 +52,25 @@ def reset_meteor(active_meteor):
         game_won()
 
 def draw_meteor(active_meteor, letter):
-    game_starter.write("Press the indicated key, destroy the meteor!", font=font_setup)
-    active_meteor.penup()
-    active_meteor.shape(meteor_image)
-    active_meteor.speed("fastest")
-    draw_letter(letter, active_meteor)
-    active_meteor.showturtle()
-    active_meteor.speed(2.5)
-    wn.update()
+    global start
+    if(start <= 0):
+        game_starter.write("Press the indicated key, destroy the meteor!", font=font_setup)
+        active_meteor.penup()
+        active_meteor.shape(meteor_image)
+        active_meteor.speed("fastest")
+        draw_letter(letter, active_meteor)
+        active_meteor.showturtle()
+        active_meteor.speed(2.5)
+        wn.update()
+        start += 1
+    else:
+        active_meteor.penup()
+        active_meteor.shape(meteor_image)
+        active_meteor.speed("fastest")
+        draw_letter(letter, active_meteor)
+        active_meteor.showturtle()
+        active_meteor.speed(2.5)
+        wn.update()
 
 def meteor_respawn():
     meteor.hideturtle()
@@ -69,7 +81,7 @@ def life_change():
     global lives
     lives -= 1
     life_counter.clear()
-    life_counter.write(lives, font=font_setup)
+    life_counter.write("Lives: " + str(lives), font=font_setup)
     if(lives <= 0):
         game_lost()
 
@@ -86,7 +98,7 @@ def game_lost():
 
 def game_won():
     meteor.clear()
-    game_starter.write("Meteors destroyed, click to play again!", font=font_setup)
+    game_starter.write("Meteors destroyed! click to play again!", font=font_setup)
 
 def checkA():
   if(current_letter == "A"):
@@ -193,7 +205,7 @@ def checkZ():
     meteor_respawn()
 
 # function calls
-wn.onclick(draw_meteor)
+wn.onclick(reset_meteor)
 draw_meteor(meteor, "F")
 wn.onkeypress(checkA, "a")
 wn.onkeypress(checkB, "b")
