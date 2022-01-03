@@ -94,11 +94,13 @@ def draw_letter(letter, active_meteor):
 
 def game_lost():
     meteor.clear()
-    game_starter.write("Out of lives! Click to play again", font=font_setup)
+    game_starter.write("Out of lives! Click to play again!", font=font_setup)
+    draw_meteor()
 
 def game_won():
     meteor.clear()
-    game_starter.write("Meteors destroyed! click to play again!", font=font_setup)
+    game_starter.write("Meteors destroyed! Click to play again!", font=font_setup)
+    draw_meteor()
 
 def checkA():
   if(current_letter == "A"):
