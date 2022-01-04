@@ -73,17 +73,20 @@ def draw_meteor(active_meteor, letter):
         wn.update()
 
 def meteor_respawn():
-    meteor.hideturtle()
-    meteor.clear()
-    reset_meteor(meteor)
+    if(lives>0):
+        meteor.hideturtle()
+        meteor.clear()
+        reset_meteor(meteor)
+    else:
+        meteor.hideturtle()
+        meteor.clear()
+        game_lost()
 
 def life_change():
     global lives
     lives -= 1
     life_counter.clear()
     life_counter.write("Lives: " + str(lives), font=font_setup)
-    if(lives <= 0):
-        game_lost()
 
 def draw_letter(letter, active_meteor):
     active_meteor.color("white")
@@ -94,13 +97,13 @@ def draw_letter(letter, active_meteor):
 
 def game_lost():
     meteor.clear()
-    game_starter.write("Out of lives! Click to play again!", font=font_setup)
-    draw_meteor()
+    game_starter.write("Out of lives! You lose!", font=font_setup)
+    wn.onclick(draw_meteor)
 
 def game_won():
     meteor.clear()
-    game_starter.write("Meteors destroyed! Click to play again!", font=font_setup)
-    draw_meteor()
+    game_starter.write("Meteors destroyed! You win!", font=font_setup)
+    wn.onclick(draw_meteor)
 
 def checkA():
   if(current_letter == "A"):
